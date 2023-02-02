@@ -1,0 +1,7 @@
+site_name: CloudForetIdentityService
+site_description: CloudForet Identity Service
+nav:
+  - About: index.md
+plugins:
+  - techdocs-core
+
