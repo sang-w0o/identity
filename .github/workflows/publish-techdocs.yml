@@ -14,6 +14,10 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+      ENTITY_NAMESPACE: 'cloudforet-core'
+      ENTITY_KIND: 'coreService'
+      ENTITY_NAME: 'cloudforet-identity'
 
     steps:
       - name: Checkout
@@ -34,5 +38,5 @@ jobs:
         run: techdocs-cli generate --no-docker --verbose
 
       - name: Publish docs
-        run: techdocs-cli publish --publisher-type awsS3 --storage-name $TECHDOCS_S3_BUCKET_NAME --entity cloudforet-core/coreService/cloudforet-identity
+        run: techdocs-cli publish --publisher-type awsS3 --storage-name $AWS_S3_BUCKET_NAME --entity $ENTITY_NAMESPACE/$ENTITY_KIND/$ENTITY_NAME
 
