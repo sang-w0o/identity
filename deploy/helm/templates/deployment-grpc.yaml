@@ -19,7 +19,6 @@ spec:
   template:
     metadata:
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "true"
         spaceone.deployment.tool: helm
         spaceone.database-flag: {{ print .Values.database | sha256sum }}
         spaceone.shared-flag: {{ print .Values.global.shared | sha256sum }}
@@ -74,6 +73,12 @@ spec:
 {{- toYaml .Values.volumeMounts.application_grpc | nindent 12 }}
 {{- end }}
           env:
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://$(HOST_IP):4318
             - name: SPACEONE_CONFIG_FILE
               value: /opt/spaceone/{{ .Values.name }}/config/config.yaml
 {{- if .Values.global.common_env }}

@@ -1,5 +1,10 @@
 from spaceone.api.identity.v1 import user_pb2, user_pb2_grpc
 from spaceone.core.pygrpc import BaseAPI
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 
 
 class User(BaseAPI, user_pb2_grpc.UserServicer):
